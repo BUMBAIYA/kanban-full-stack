@@ -8,19 +8,17 @@ ENV SERVER_PORT=${SERVER_PORT}
 
 WORKDIR /app
 
-COPY package.json .
+COPY package*.json ./
 RUN npm install
 
-COPY /src /src
-COPY prisma/ prisma/
+COPY . .
 
 EXPOSE ${SERVER_PORT}
 
 RUN npm run db:generate
-# RUN npm run db:migrate
-# RUN npm run db:migrate-deploy
-# RUN npm run db:generate
+
+RUN chmod +x ./scripts/start-up.sh
 
 ENV NODE_ENV=production
 
-CMD ["npm", "start"]
+CMD ["./scripts/start-up.sh"]
