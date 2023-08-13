@@ -1,0 +1,22 @@
+{
+  "name": "kanban",
+  "version": "0.1.0",
+  "author": "bumbaiya",
+  "license": "MIT",
+  "scripts": {
+    "dev:server": "npm run dev --workspace @kanban/server",
+    "start:server": "npm run start --workspace @kanban/server",
+    "db:migrate": "npm run db:migrate --workspace @kanban/server",
+    "db:generate": "npm run db:generate --workspace @kanban/server",
+    "dev:app": "npm run dev --workspace @kanban/app",
+    "build:app": "npm run build --workspace @kanban/app",
+    "start:app": "npm run preview --workspace @kanban/app",
+    "precheck": "npm run lint --workspace @kanban/app"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "cross-env": "^7.0.3"
+  }
+}

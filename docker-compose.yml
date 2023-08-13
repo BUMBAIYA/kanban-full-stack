@@ -1,0 +1,45 @@
+version: "3.9"
+name: kanban
+services:
+  postgres:
+    container_name: "kanban-postgres-db"
+    restart: unless-stopped
+    env_file:
+      - .env
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: kanban
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      PGDATA: /data/postgres
+    networks:
+      - kanban-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  server:
+    container_name: "kanban-server"
+    env_file:
+      - .env
+    build:
+      context: ./packages/server
+      args:
+        - DATABASE_URL=postgresql://user:pass@postgres:5432/kanban
+    environment:
+      DATABASE_URL: postgresql://user:pass@postgres:5432/kanban
+    ports:
+      - "3000:3000"
+    networks:
+      - kanban-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+
+networks:
+  kanban-network:
+    driver: bridge
