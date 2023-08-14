@@ -13,7 +13,7 @@ RUN npm install
 
 COPY . .
 
-EXPOSE ${SERVER_PORT}
+EXPOSE 5432
 
 RUN npm run db:generate
 

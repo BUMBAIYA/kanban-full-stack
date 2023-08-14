@@ -10,9 +10,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: kanban
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       PGDATA: /data/postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -25,9 +25,10 @@ services:
     build:
       context: ./packages/server
       args:
-        - DATABASE_URL=postgresql://user:pass@postgres:5432/kanban
+        - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+        - SERVER_PORT=${SERVER_PORT}
     ports:
-      - "3000:3000"
+      - "${SERVER_PORT}:${SERVER_PORT}"
     entrypoint: ["./scripts/start-up.sh"]
     depends_on:
       postgres:

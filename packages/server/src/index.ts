@@ -13,7 +13,7 @@ if (!PORT) {
 const expressApp = express();
 expressApp.use(
   cors({
-    origin: ["*"],
+    origin: process.env.CORS_ORIGIN ?? "*",
   })
 );
 expressApp.use(express.json());
