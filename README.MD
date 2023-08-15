@@ -53,6 +53,8 @@ Steps to locally setup development after cloning the project.
 
 4. `Recommended` : Use Docker to build the PostgreSQL server if you don't want to install postgres locally
 
+    Copy and paste variables from `.env.example` into `.env` in project root.Do not edit the env variables
+
     Copy and paste variables from `Docker` part from `packages/server/.env.example` into `packages/server/.env` Do not edit the env variables
 
     Run docker compose
